@@ -23,3 +23,25 @@ with open('recipes.txt', 'rt', encoding='utf-8') as file:
 
 print('cook-book - ')
 pprint(cook_book, sort_dicts=False)
+
+
+print('Задание №2')
+
+def get_shoplist_for_persons(list_dishes, person_count):
+    shoplist = {}
+    for recipe, ingredients in cook_book.items():
+        if recipe in list_dishes:
+            for ingredient in ingredients:
+                name = ingredient['ingredient_name']
+                quantity = int(ingredient['quantity'])
+                measure = ingredient['measure']
+                if name not in shoplist.keys():
+                    shoplist[name] = {
+                        'measure': measure,
+                        'quantity': int(quantity) * person_count
+                    }
+                else:
+                    shoplist[name]['quantity'] += quantity
+    return shoplist
+
+pprint(get_shoplist_for_persons(['Шаурма', 'Тако'], 2))
